@@ -1,0 +1,24 @@
+#!/bin/bash
+python train_.py --env-name Overcooked \
+  --env_config './environment/overcooked/config/forced_coord_broccoli_dense_reward_cross_recipe_upper_random_init_step01_el40_partial.yaml' \
+  --player-id 0 --recipe-type cross \
+  --algo ppo --num-steps 1000 --num-processes 72 --use-gae --eps 1e-8 --use-proper-time-limit \
+  --lr 1e-3 --entropy-coef 3e-2 --value-loss-coef 0.5 --num-epochs 4 --num-mini-batch 18 --gamma 0.99 --gae-lambda 0.95 \
+  --max-grad-norm 15.0 \
+  --num-env-steps 30000000 \
+  --save-interval 5000000 --log-interval 10000 --eval-interval 100000 --eval-episodes 5 \
+  --max-grad-norm 15.0 \
+  --exp-name "liamx" \
+  --joint-training \
+  --hidden-dims 128 128 --act-func relu \
+  --recurrent-policy --rnn-hidden-dim 128 --rnn-chunk-length 20 --share-actor-critic \
+  --all-has-last-action \
+  --collect-peer-traj \
+  --auxiliary-peer-obs-pred-coef 1.0 \
+  --auxiliary-peer-act-pred-coef 1.0 \
+  --train-pool-size 18 --eval-pool-size 9 \
+  --rule-based-opponents 18 \
+  --use-meta-episode \
+  --history-size 5 \
+  --seed $1 \
+  --wandb-user-name <wandb_user_name>

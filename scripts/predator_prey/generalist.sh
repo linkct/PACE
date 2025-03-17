@@ -1,0 +1,21 @@
+#!/bin/bash
+python train_.py --env-name MPE \
+  --scenario simple_tag_multi_partial --num-agents 4 --num-good-agents 2 --obs-radius 0.2 --horizon 50 --shaped-reward --collide-reward-once --watch-tower \
+  --player-id 0 \
+  --algo ppo --num-steps 1000 --num-processes 64 --use-gae --eps 1e-8 --use-proper-time-limit \
+  --lr 1e-3 --entropy-coef 3e-2 --value-loss-coef 0.5 --num-epochs 4 --num-mini-batch 16 --gamma 0.99 --gae-lambda 0.95 \
+  --max-grad-norm 15.0 \
+  --num-env-steps 15000000 \
+  --save-interval 5000000 --log-interval 10000 --eval-interval 100000 --eval-episodes 5 \
+  --max-grad-norm 15.0 \
+  --exp-name "generalist" \
+  --joint-training \
+  --hidden-dims 128 128 --act-func relu \
+  --recurrent-policy --rnn-hidden-dim 128 --rnn-chunk-length 20 --share-actor-critic \
+  --train-pool-size 16 --eval-pool-size 24 \
+  --rule-based-opponents 16 \
+  --separate-patterns \
+  --use-meta-episode \
+  --history-size 5 \
+  --seed $1 \
+  --wandb-user-name <wandb_user_name>

@@ -1,0 +1,32 @@
+#!/bin/bash
+python train_.py --env-name Overcooked \
+  --env_config './environment/overcooked/config/forced_coord_broccoli_dense_reward_cross_recipe_upper_random_init_step01_el40_partial.yaml' \
+  --player-id 0 --recipe-type cross \
+  --algo ppo --num-steps 1000 --num-processes 72 --use-gae --eps 1e-8 --use-proper-time-limit \
+  --lr 1e-3 --entropy-coef 3e-2 --value-loss-coef 0.5 --num-epochs 4 --num-mini-batch 18 --gamma 0.99 --gae-lambda 0.95 \
+  --max-grad-norm 15.0 \
+  --num-env-steps 30000000 \
+  --save-interval 5000000 --log-interval 10000 --eval-interval 100000 --eval-episodes 5 \
+  --exp-name "lili" \
+  --latent-training --e2e-obj \
+  --deterministic-latent \
+  --use-latent-critic \
+  --pre-hidden-dims 128 128 --encoder-base mlp --agg-func mean --post-hidden-dims 128 \
+  --latent-dim 128 --kl-coef 0 \
+  --hidden-dims 128 128 --act-func relu \
+  --train-pool-size 18 --eval-pool-size 9 \
+  --rule-based-opponents 18 \
+  --auxiliary-transition-pred-coef 1.0 --self-action-mode --last-episode-only --collect-next-obs \
+  --visit-reward-coef 0.0 --visit-reward-type episode \
+  --history-middle-sampling \
+  --merge-encoder-computation \
+  --history-full-size 5 \
+  --history-size 5 \
+  --history-use-episodes \
+  --include-current-episode \
+  --use-meta-episode \
+  --self-obs-mode \
+  --clear-history-on-full \
+  --separate-history \
+  --seed $1 \
+  --wandb-user-name <wandb_user_name>
